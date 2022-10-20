@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.0.0/dist/tf.min.js"></script>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Handwriting recognition</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	</head>
+	<!-- <body onload="doStyleTransfer()"> -->
+    <body>
+		<img id="img" src="test3.jpeg"></img>
+        <button id="submit" onclick="predict()">Predict</button>
+	</body>
+    <script>
+        console.log("hi");
+        async function loadModel(){
+            return tf.loadLayersModel('/jsmodel/model.json');
+        }
+        const classOut = ['chihuahua', 'muffin']
+        async function predict(){
+            
+            console.log("called");
+            const model = await loadModel();
+
+            const image = document.getElementById("img");
+
+            const imageTensor = preprocess(image);
+
+            predicts = await model.predict(imageTensor).as1D();
+            //console.log(predicts)
+            console.log(classOut[predicts.argMax().dataSync()[0]])
+           
+        }
+
+        function preprocess(imageData){
+           return tensor = tf.browser.fromPixels(imageData)
+           .resizeNearestNeighbor([180,180])
+           .toFloat()
+           .expandDims();
+        }
+
+    </script>
+    
+</html>
