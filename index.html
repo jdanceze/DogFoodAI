@@ -13,21 +13,27 @@
 </head>
 
 <body>
-
+    <div class="container">
+        <!-- Content here -->
+    
+    <h1 style="text-align: center;">Chihuahua or Miffin</h1>
+    <img class="rounded mx-auto d-block" src="cover.jpeg"/>
     <main>
-        <section class="image-section">
-            <img src="" id="image" />
-            <div id="image-prediction"></div>
-          </section>
-
+        
         <section class="file-section">
             <div class="file-group">
                 <label for="file-input">Upload a picture</label>
                 <input type="file" accept="image/*" class="form-control" id="file-input" />
             </div>
         </section>
+        <br>
+        <section class="image-section">
+            <div id="image-prediction" class="d-flex justify-content-center"></div>
+            <img src="" id="image" class="rounded mx-auto d-block"/>
+        </section>
+        
     </main>
-
+</div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
@@ -40,7 +46,7 @@
     async function loadModel() {
         return tf.loadLayersModel('/jsmodel/model.json');
     }
-    const classOut = ['chihuahua', 'muffin']
+    const classOut = ['Chihuahua &#128054', 'Muffin &#127850']
 
     const fileInput = document.getElementById("file-input");
     const image = document.getElementById("image");
@@ -54,7 +60,7 @@
         predicts = await model.predict(imageTensor).as1D();
         //console.log(predicts)
         var result = classOut[predicts.argMax().dataSync()[0]];
-        description.innerText = `That is a ${result}`;
+        description.innerHTML = `<h2>That is a <i class="text-warning">${result}</i></h2>`;
     }
 
     /**
