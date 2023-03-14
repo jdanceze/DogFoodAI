@@ -12,3 +12,4 @@ app.get('/', function(request, response){
 
 //run
 app.listen(8080)
+module.exports = app;
