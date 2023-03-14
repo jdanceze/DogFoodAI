@@ -6,9 +6,9 @@ app.use(express.static('public'))
 const path = require("path");
 const { get } = require('http');
 
-app.get('/', function(request, response){
-    response.sendFile(__dirname + '/index.html');
-});
+app.get('/', (req, res) => {
+  res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+})
 
 //run
 app.listen(8080)
